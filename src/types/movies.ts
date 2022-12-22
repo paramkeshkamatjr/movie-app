@@ -8,3 +8,12 @@ export type moviesType = {
   actors: string;
   posterUrl: string;
 };
+
+export type MovieHeaderProps = {
+  title: string;
+  genres: string[];
+  selectedGenres: string[];
+  handleFilterChange: (genre: string) => void;
+  applyFilters: () => void;
+  clearAllFilters: () => void;
+};

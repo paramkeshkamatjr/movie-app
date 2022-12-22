@@ -23,6 +23,27 @@ code {
   padding: 40px 0;
 }
 
+.movie-header p {
+  margin: 12px 0;
+}
+
+.filters-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.filters-container span {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.filters-container .active-filter {
+  border: 1x solid slateblue !important;
+  color: slateblue;
+}
+
 .movie-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -53,7 +74,8 @@ code {
   gap: 20px;
   padding: 20px 0;
 }
-.pagination-container button {
+.pagination-container button,
+.movie-header button {
   cursor: pointer;
   padding: 5px 10px;
 }

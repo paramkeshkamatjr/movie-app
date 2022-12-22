@@ -1,27 +1,33 @@
-import React from "react";
 import { moviesType } from "../types/movies";
 
-export default function MovieCard(props: moviesType) {
+export default function MovieCard({
+  posterUrl,
+  title,
+  year,
+  genres,
+  director,
+  actors,
+}: moviesType) {
   return (
     <div className="movie-card">
-      <img src={props.posterUrl} alt={props.title} />
+      <img src={posterUrl} alt={title} />
       <div className="movie-description">
-        <h2>{props.title}</h2>
+        <h2>{title}</h2>
         <p>
           <strong>Year: </strong>
-          {props.year}
+          {year}
         </p>
         <p>
           <strong>Genres: </strong>
-          {props.genres.join(", ")}
+          {genres.join(", ")}
         </p>
         <p>
           <strong>Director: </strong>
-          {props.director}
+          {director}
         </p>
         <p>
           <strong>Actors: </strong>
-          {props.actors}
+          {actors}
         </p>
       </div>
     </div>

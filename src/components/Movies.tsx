@@ -12,6 +12,7 @@ export default function Movies() {
     data.movies.slice(0, ITEMS_PER_PAGE)
   );
   const [genres, setGenres] = useState<string[]>(data.genres);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(
     Math.floor(data.movies.length / ITEMS_PER_PAGE)
@@ -28,7 +29,6 @@ export default function Movies() {
         handleItemsChange(prev + 1);
         return prev + 1;
       });
-      console.log("nextPage");
     }
   }
   function prevPage() {
@@ -40,9 +40,45 @@ export default function Movies() {
     }
   }
 
+  function handleFilterChange(genre: string) {
+    if (selectedGenres.includes(genre)) {
+      setSelectedGenres(selectedGenres.filter((g) => g !== genre));
+    } else {
+      setSelectedGenres([...selectedGenres, genre]);
+    }
+  }
+
+  function performIntersection(arr1: string[], arr2: string[]) {
+    const intersectionResult = arr1.filter((x) => arr2.indexOf(x) !== -1);
+    return intersectionResult;
+  }
+
+  function applyFilters() {
+    const filteredMovies = data.movies.filter(
+      (movie) => performIntersection(movie.genres, selectedGenres).length > 0
+    );
+    setMovies(filteredMovies);
+    setCurrentPage(1);
+    setTotalPages(Math.floor(filteredMovies.length / ITEMS_PER_PAGE));
+  }
+
+  function clearAllFilters() {
+    setMovies(data.movies);
+    setSelectedGenres([]);
+    setCurrentPage(1);
+    setTotalPages(Math.floor(data.movies.length / ITEMS_PER_PAGE));
+  }
+
   return (
     <div>
-      <MovieHeader title="MOVIE LIST" />
+      <MovieHeader
+        title="MOVIE LIST"
+        genres={genres}
+        selectedGenres={selectedGenres}
+        handleFilterChange={handleFilterChange}
+        applyFilters={applyFilters}
+        clearAllFilters={clearAllFilters}
+      />
       <div className="movie-container">
         {movies.map((movie) => (
           <MovieCard key={movie.id} {...movie} />

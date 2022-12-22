@@ -1,4 +1,3 @@
-import React from "react";
 import { paginationProps } from "../types/pagination";
 
 export default function Pagination({
