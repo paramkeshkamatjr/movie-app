@@ -1,15 +1,14 @@
 import { useState } from "react";
 import MovieCard from "./MovieCard";
 import MovieHeader from "./MovieHeader";
-import data from "../data/movies.json";
-import { moviesType } from "../types/movies";
 import Pagination from "./Pagination";
+import { moviesType } from "../types/movies";
+import data from "../data/movies.json";
 
 const ITEMS_PER_PAGE = 12;
 
 export default function Movies() {
   const [movies, setMovies] = useState<moviesType[]>(data.movies);
-  const [genres, setGenres] = useState<string[]>(data.genres);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(
@@ -44,7 +43,6 @@ export default function Movies() {
     const filteredMovies = data.movies.filter(
       (movie) => performIntersection(movie.genres, selectedGenres).length > 0
     );
-    console.log(Math.round(filteredMovies.length / ITEMS_PER_PAGE));
     setMovies(filteredMovies);
     setCurrentPage(1);
     setTotalPages(Math.round(filteredMovies.length / ITEMS_PER_PAGE));
@@ -61,7 +59,7 @@ export default function Movies() {
     <div>
       <MovieHeader
         title="MOVIE LIST"
-        genres={genres}
+        genres={data.genres}
         selectedGenres={selectedGenres}
         handleFilterChange={handleFilterChange}
         applyFilters={applyFilters}
