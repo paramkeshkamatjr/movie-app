@@ -79,3 +79,7 @@ code {
   cursor: pointer;
   padding: 5px 10px;
 }
+
+button:disabled {
+  cursor: not-allowed;
+}

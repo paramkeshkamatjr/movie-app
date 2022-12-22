@@ -8,9 +8,13 @@ export default function Pagination({
 }: paginationProps) {
   return (
     <div className="pagination-container">
-      <button onClick={prevPage}>Prev</button>
+      <button onClick={prevPage} disabled={currentPage === 1}>
+        Prev
+      </button>
       <span>{currentPage}</span>
-      <button onClick={nextPage}>Next</button>
+      <button onClick={nextPage} disabled={currentPage === totalPages}>
+        Next
+      </button>
     </div>
   );
 }

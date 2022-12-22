@@ -8,35 +8,22 @@ import Pagination from "./Pagination";
 const ITEMS_PER_PAGE = 12;
 
 export default function Movies() {
-  const [movies, setMovies] = useState<moviesType[]>(
-    data.movies.slice(0, ITEMS_PER_PAGE)
-  );
+  const [movies, setMovies] = useState<moviesType[]>(data.movies);
   const [genres, setGenres] = useState<string[]>(data.genres);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(
-    Math.floor(data.movies.length / ITEMS_PER_PAGE)
+    Math.ceil(data.movies.length / ITEMS_PER_PAGE)
   );
-
-  function handleItemsChange(page: number) {
-    const index = (page - 1) * ITEMS_PER_PAGE;
-    setMovies(data.movies.slice(index, index + ITEMS_PER_PAGE));
-  }
 
   function nextPage() {
     if (currentPage !== totalPages) {
-      setCurrentPage((prev) => {
-        handleItemsChange(prev + 1);
-        return prev + 1;
-      });
+      setCurrentPage((prev) => prev + 1);
     }
   }
   function prevPage() {
     if (currentPage !== 1) {
-      setCurrentPage((prev) => {
-        handleItemsChange(prev - 1);
-        return prev - 1;
-      });
+      setCurrentPage((prev) => prev - 1);
     }
   }
 
@@ -57,16 +44,17 @@ export default function Movies() {
     const filteredMovies = data.movies.filter(
       (movie) => performIntersection(movie.genres, selectedGenres).length > 0
     );
+    console.log(Math.round(filteredMovies.length / ITEMS_PER_PAGE));
     setMovies(filteredMovies);
     setCurrentPage(1);
-    setTotalPages(Math.floor(filteredMovies.length / ITEMS_PER_PAGE));
+    setTotalPages(Math.round(filteredMovies.length / ITEMS_PER_PAGE));
   }
 
   function clearAllFilters() {
     setMovies(data.movies);
     setSelectedGenres([]);
     setCurrentPage(1);
-    setTotalPages(Math.floor(data.movies.length / ITEMS_PER_PAGE));
+    setTotalPages(Math.round(data.movies.length / ITEMS_PER_PAGE));
   }
 
   return (
@@ -80,9 +68,14 @@ export default function Movies() {
         clearAllFilters={clearAllFilters}
       />
       <div className="movie-container">
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} {...movie} />
-        ))}
+        {movies
+          .slice(
+            (currentPage - 1) * ITEMS_PER_PAGE,
+            (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+          )
+          .map((movie) => (
+            <MovieCard key={movie.id} {...movie} />
+          ))}
       </div>
       <Pagination
         nextPage={nextPage}

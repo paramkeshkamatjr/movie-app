@@ -10,7 +10,11 @@ export default function MovieCard({
 }: moviesType) {
   return (
     <div className="movie-card">
-      <img src={posterUrl} alt={title} />
+      <img
+        src={posterUrl}
+        alt={title}
+        onError={(e) => (e.currentTarget.src = "/fallback-image.png")}
+      />
       <div className="movie-description">
         <h2>{title}</h2>
         <p>
