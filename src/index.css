@@ -1,13 +1,59 @@
-body {
+* {
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  box-sizing: border-box;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.movie-header {
+  max-width: 1368px;
+  width: 90vw;
+  margin: auto;
+  padding: 40px 0;
+}
+
+.movie-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  max-width: 1368px;
+  width: 90vw;
+  margin: auto;
+}
+
+.movie-card {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+}
+.movie-card img {
+  width: 100%;
+}
+.movie-description {
+  padding: 10px;
+}
+.movie-description h2 {
+  margin-bottom: 6px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+.pagination-container button {
+  cursor: pointer;
+  padding: 5px 10px;
 }
